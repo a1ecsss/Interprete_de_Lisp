@@ -1,7 +1,7 @@
 import java.util.*;
 
 class Environment {
-    private List<Object> codigo;
+    public List<Object> codigo;
     private Map<String, Object> variables;
     private Map<String, Environment> funciones;
     private Ejecutador ejecutador;
@@ -15,10 +15,21 @@ class Environment {
     }
 
     public void ejecutarCodigo() {
-        for (Object expresion : codigo) {
-            this.ejecutador.ejecutar(expresion);
+        if (!this.codigo.isEmpty()) {
+            for (Object object : this.codigo) {
+                if (object instanceof List) {
+                    // Si es una lista, hacer un casting a List<Object>
+                    try{
+                        this.ejecutador.ejecutarExpresion((List<Object>) object);
+                    }catch (RuntimeException e) {
+                        System.out.println("Error: " + e.getMessage());
+                    }
+                    
+                }
+            }
         }
     }
+    
 
     public List<Object> getCodigo() {
         return codigo;

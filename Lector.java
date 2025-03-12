@@ -8,11 +8,13 @@ public class Lector {
         if (!root.endsWith(".txt") && !root.endsWith(".lisp")) {
             throw new IllegalArgumentException("Error: Solo se permiten archivos .txt o .lisp");
         }
+
         String contenido = leerArchivo(root);
         codigo = parsearCodigo(contenido);
         return codigo;
     }
 
+    //lee archivo y junta lineas con espacio
     private static String leerArchivo(String root) throws IOException {
         StringBuilder contenido = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new FileReader(root))) {
@@ -24,10 +26,12 @@ public class Lector {
         return contenido.toString().trim();
     }
 
+    //paresea el codigo mandando y una instancia de StringTokenizer (java)
     private static List<Object> parsearCodigo(String codigo) {
         return parsearLista(new StringTokenizer(codigo, " ()", true));
     }
 
+    //paresea la lista
     private static List<Object> parsearLista(StringTokenizer listaAnidadas) {
         List<Object> lista = new ArrayList<>();
         while (listaAnidadas.hasMoreTokens()) {
@@ -44,6 +48,7 @@ public class Lector {
         return lista;
     }
 
+    //para string-numeros los pasa a valor nuemerico
     private static Object parsearValor(String listaAnidada) {
         if (listaAnidada.matches("-?\\d+")) {
             return Integer.parseInt(listaAnidada);

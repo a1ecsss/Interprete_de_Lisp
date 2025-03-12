@@ -8,6 +8,8 @@ public class Main {
         try {
             List<Object> codigo = Lector.getCodigo(rutaArchivo);
             System.out.println("Lista anidada generada: " + codigo);
+            Environment env = new Environment(codigo, "Main");
+            env.ejecutarCodigo();
         } catch (IOException e) {
             System.err.println("Error al leer el archivo: " + e.getMessage());
         } catch (IllegalArgumentException e) {
