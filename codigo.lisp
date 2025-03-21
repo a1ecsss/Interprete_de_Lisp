@@ -4,7 +4,7 @@
   (defun imprimir (string) 
     (format t string))
   (if (= n 1)
-      (imprimir (format nil "Mover de PENe ~A a Pene ~A ~%" a c ))  
+      (imprimir (format nil "Mover de ~A a ~A ~%" a c ))  
       (progn (hanoi (- n 1) a c b)
         (hanoi 1 a b c) 
         (hanoi (- n 1) b a c))))
