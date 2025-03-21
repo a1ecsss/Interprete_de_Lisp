@@ -25,12 +25,8 @@ public class Comparaciones implements ISExpression {
         Object operando2 = expresion.get(2);
         
         // Evaluar si los operandos son listas y ejecutarlas recursivamente
-        if (operando1 instanceof List) {
-            operando1 = ejecutador.ejecutarExpresion((List<Object>) operando1);
-        }
-        if (operando2 instanceof List) {
-            operando2 = ejecutador.ejecutarExpresion((List<Object>) operando2);
-        }
+        operando1 = ejecutador.ejecutarExpresion(operando1);
+        operando2 = ejecutador.ejecutarExpresion(operando2);
 
         // Validar si son null antes de convertir
         if (operando1 == null || operando2 == null) {
@@ -46,7 +42,7 @@ public class Comparaciones implements ISExpression {
             throw new RuntimeException("TypeError: Expected numbers but got -> " + operando1 + ", " + operando2);
         }
         
-        return switch (operador) {
+        boolean resultado = switch (operador) {
             case "=" -> num1 == num2;
             case "/=" -> num1 != num2;
             case "<" -> num1 < num2;
@@ -55,5 +51,7 @@ public class Comparaciones implements ISExpression {
             case ">=" -> num1 >= num2;
             default -> throw new RuntimeException("OperatorError: Unknown comparison operator -> " + operador);
         };
+        
+        return resultado ? "T" : null;
     }
 }
