@@ -1,6 +1,4 @@
 ;;"C:\Program Files\Java\jdk-22\bin\java" Main
-; hola
-'(1 2 3) -> '[1, 2, 3] -> [', [1, 2, 3]]
 
 (setq x "hola" ) -> ["setq", "x", '"hola"']
 (setq x '(1 2 3)) - x = (1, 2, 3)
