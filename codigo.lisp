@@ -1,7 +1,5 @@
 ;;"C:\Program Files\Java\jdk-22\bin\java" Main
 
-(setq x "hola" ) -> ["setq", "x", '"hola"']
-(setq x '(1 2 3)) - x = (1, 2, 3)
 (defun hanoi (n a b c)
   (defun imprimir (string) 
     (format t string))
