@@ -44,7 +44,7 @@ public class ControlFlujo implements ISExpression {
                     }
                     List<Object> par = (List<Object>) elemento;
                     if (par.isEmpty()) {
-                        continue; // Si hay una lista vacía, simplemente la ignoramos
+                        continue; //si hay una lista vacia, la ignoramos
                     }
                     if (par.size() < 2) {
                         throw new IllegalArgumentException("ControlFlowError: 'cond' expects at least a condition and an expression -> " + expresion);
@@ -79,7 +79,7 @@ public class ControlFlujo implements ISExpression {
                     throw new IllegalArgumentException("ControlFlowError: 'case' expects a value and at least one case -> " + expresion);
                 }
             
-                Object valor = ejecutador.ejecutarExpresion(expresion.get(1));  // Evalúa el valor a comparar
+                Object valor = ejecutador.ejecutarExpresion(expresion.get(1));
             
                 for (int i = 2; i < expresion.size(); i++) {
                     Object elemento = expresion.get(i);
@@ -89,7 +89,7 @@ public class ControlFlujo implements ISExpression {
             
                     List<Object> par = (List<Object>) elemento;
                     if (par.isEmpty()) {
-                        continue;  // Si hay una lista vacía, simplemente la ignoramos
+                        continue;  //si hay una lista vacia, la ignoramos
                     }
             
                     if (par.size() < 2) {
@@ -98,7 +98,7 @@ public class ControlFlujo implements ISExpression {
             
                     Object caso = par.get(0);
             
-                    if (!ISExpression.isAtom(caso)) {  // Soporte para varios valores en un solo caso (case1 case2 case3)
+                    if (!ISExpression.isAtom(caso)) {  //soporte para varios valores en un solo caso (case1 case2 case3)
                         for (Object opcion : (List<?>) caso) {
                             if (valor.equals(ejecutador.ejecutarExpresion(opcion))) {
                                 Object resultado = null;
@@ -109,14 +109,14 @@ public class ControlFlujo implements ISExpression {
                                 //return ejecutador.ejecutarExpresion(par.get(1));
                             }
                         }
-                    } else if (caso.equals("otherwise")) {  // Caso por defecto
+                    } else if (caso.equals("otherwise")) {  //caso por defecto
                         Object resultado = null;
                         for(Object proceso : par.subList(1, par.size())){
                             resultado = ejecutador.ejecutarExpresion(proceso);
                         }
                         return resultado;
                         //return ejecutador.ejecutarExpresion(par.get(1));
-                    } else if (valor.equals(ejecutador.ejecutarExpresion(caso))) {  // Coincidencia exacta
+                    } else if (valor.equals(ejecutador.ejecutarExpresion(caso))) {  //coincidencia exacta
                         Object resultado = null;
                         for(Object proceso : par.subList(1, par.size())){
                             resultado = ejecutador.ejecutarExpresion(proceso);
@@ -126,7 +126,7 @@ public class ControlFlujo implements ISExpression {
                     }
                 }
             
-                return null;  // Si no hay coincidencia, retorna `null`
+                return null;  //si no hay coincidencia se retorna null
             
 
             default:

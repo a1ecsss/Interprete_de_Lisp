@@ -26,50 +26,50 @@ public class Evaluacion implements ISExpression {
                 if (expresion.size() != 2) {
                     throw new IllegalArgumentException("EvaluationError: 'quote' expects exactly one argument -> " + expresion);
                 }
-                return expresion.get(1); // Devuelve el dato sin evaluarlo
+                return expresion.get(1); //devuelve el dato sin evaluarlo
             case "'":
                 if (expresion.size() < 2) { // devuelve un error si la lista esta vacia '()
                     throw new IllegalArgumentException("EvaluationError: ' expects at least one argument -> " + expresion);
                 }
-                return expresion.get(1); // Devuelve el dato sin evaluarlo
+                return expresion.get(1); //devuelve el dato sin evaluarlo
             case "eval":
                 if (expresion.size() != 2) {
                     throw new IllegalArgumentException("EvaluationError: 'eval' expects exactly one argument -> " + expresion);
                 }
-                return ejecutador.ejecutarExpresion(ejecutador.ejecutarExpresion(expresion.get(1))); // Evalúa el contenido
+                return ejecutador.ejecutarExpresion(ejecutador.ejecutarExpresion(expresion.get(1))); //evalua el contenido
             case "atom":
                 if (expresion.size() != 2) {
                     throw new IllegalArgumentException("EvaluationError: 'atom' expects exactly one argument -> " + expresion);
                 }
-                return ISExpression.isAtom(ejecutador.ejecutarExpresion(expresion.get(1))) ? "T" : null; // Evalúa el contenido
+                return ISExpression.isAtom(ejecutador.ejecutarExpresion(expresion.get(1))) ? "T" : null; // evalua el contenido
             case "numberp":
                 if (expresion.size() != 2) {
                     throw new IllegalArgumentException("EvaluationError: 'numberp' expects exactly one argument -> " + expresion);
                 }
-                return ISExpression.isNumber(ejecutador.ejecutarExpresion(expresion.get(1))) ? "T" : null; // Evalúa el contenido
+                return ISExpression.isNumber(ejecutador.ejecutarExpresion(expresion.get(1))) ? "T" : null; // evalua el contenido
             case "evenp":
                 if (expresion.size() != 2) {
                     throw new IllegalArgumentException("EvaluationError: 'evenp' expects exactly one argument -> " + expresion);
                 }
-                return ISExpression.isEven(ejecutador.ejecutarExpresion(expresion.get(1))) ? "T" : null; // Evalúa el contenido
+                return ISExpression.isEven(ejecutador.ejecutarExpresion(expresion.get(1))) ? "T" : null; // evalua el contenido
             case "oddp":
                 if (expresion.size() != 2) {
                     throw new IllegalArgumentException("EvaluationError: 'evenp' expects exactly one argument -> " + expresion);
                 }
-                return ISExpression.isOdd(ejecutador.ejecutarExpresion(expresion.get(1))) ? "T" : null; // Evalúa el contenido
+                return ISExpression.isOdd(ejecutador.ejecutarExpresion(expresion.get(1))) ? "T" : null; // evalua el contenido
             case "max":
                 if (expresion.size() != 3) {
                     throw new IllegalArgumentException("EvaluationError: 'min' expects exactly two argument -> " + expresion);
                 }
-                return ISExpression.max(ejecutador.ejecutarExpresion(expresion.get(1)), ejecutador.ejecutarExpresion(expresion.get(2))); // Evalúa el contenido
+                return ISExpression.max(ejecutador.ejecutarExpresion(expresion.get(1)), ejecutador.ejecutarExpresion(expresion.get(2))); // evalua el contenido
             case "min":
                 if (expresion.size() != 3) {
                     throw new IllegalArgumentException("EvaluationError: 'max' expects exactly two argument -> " + expresion);
                 }
-                return ISExpression.min(ejecutador.ejecutarExpresion(expresion.get(1)), ejecutador.ejecutarExpresion(expresion.get(2))); // Evalúa el contenido
+                return ISExpression.min(ejecutador.ejecutarExpresion(expresion.get(1)), ejecutador.ejecutarExpresion(expresion.get(2))); // evalua el contenido
             case "progn":
                 Object resultado = null;
-                // Comenzamos desde el índice 1 en lugar de 0
+                //comenzamos desde 1
                 for (int i = 1; i < expresion.size(); i++) {
                     resultado = ejecutador.ejecutarExpresion(expresion.get(i));
                 }

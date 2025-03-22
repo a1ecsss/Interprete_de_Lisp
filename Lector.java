@@ -28,7 +28,7 @@ public class Lector {
                         : Math.min(indiceComentarioSimple, indiceComentarioDoble);
 
                 if (indiceComentario != -1) {
-                    linea = linea.substring(0, indiceComentario); // Cortamos antes del comentario
+                    linea = linea.substring(0, indiceComentario); //cortamos antes del comentario
                 }
 
                 contenido.append(linea).append(" ");
@@ -105,17 +105,17 @@ public class Lector {
     }
 
     private static Object parsearValor(String valor) {
-        // Verifica si es un número entero
+        //mira si si es un num entero
         if (valor.matches("-?\\d+")) {
             return Integer.parseInt(valor);
         }
 
-        // Verifica si es un número decimal (con punto)
+        //mira si si es un num decimal (con punto)
         if (valor.matches("-?\\d+\\.\\d+")) {
             return Double.parseDouble(valor);
         }
 
-        // Si no es número, devuelve el valor como string
+        //si no es num, devuelve el valor como string
         return valor;
     }
 }

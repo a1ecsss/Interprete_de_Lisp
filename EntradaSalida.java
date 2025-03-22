@@ -68,7 +68,7 @@ public class EntradaSalida implements ISExpression {
 
         Object resultado = ejecutador.ejecutarExpresion(expresion.get(1));
 
-        System.out.print(this.toStringNil(resultado));  // Sin salto de línea
+        System.out.print(this.toStringNil(resultado));  // Sin salto de linea
         return resultado;
     }
 
@@ -95,7 +95,7 @@ public class EntradaSalida implements ISExpression {
         String resultado = procesarFormato(formato, expresion.subList(3, expresion.size()));
 
         if (!ISExpression.isNil(destino)) {
-            System.out.print(resultado);  // No usa println porque `format` no siempre agrega salto de línea
+            System.out.print(resultado);  // No usa println pq format no siempre agrega salto de linea
         }
 
         return resultado;
@@ -109,7 +109,7 @@ public class EntradaSalida implements ISExpression {
         int indiceValor = 0;
 
         while (matcher.find()) {
-            String codigo = matcher.group();// Extrae `~X`
+            String codigo = matcher.group();//extrae el valor ~X
             if(!"~%".equals(codigo.toString()) && !"~&".equals(codigo.toString())){
                 if (indiceValor >= valores.size()) {
                     throw new IllegalArgumentException("IOError: Not enough arguments for format string -> " + formato);
@@ -129,7 +129,6 @@ public class EntradaSalida implements ISExpression {
     }
 
     private String obtenerValorFormateado(String codigo, Object valor) {
-        // Extraer ancho mínimo y decimales si están presentes (ejemplo: ~8,D o ~10,2F)
         Pattern pattern = Pattern.compile("~(\\d+)?(?:,(\\d+))?([ADFS%&C])");
         Matcher matcher = pattern.matcher(codigo);
         int anchoMinimo = 0;
@@ -147,12 +146,12 @@ public class EntradaSalida implements ISExpression {
         }
     
         switch (tipo) {
-            case "~A":  // Cualquier tipo convertido a String sin `String.format()`
+            case "~A":  //cualquier tipo convertido a String 
                 return (anchoMinimo > 0) 
                     ? String.format("%" + anchoMinimo + "s", valor.toString())
                     : this.toStringNil(valor);
     
-            case "~D":  // Números enteros con ancho mínimo
+            case "~D":  //numeros enteros con ancho mínimo
                 if (valor instanceof Number) {
                     int intValue = ((Number) valor).intValue();
                     return (anchoMinimo > 0) 
@@ -161,7 +160,7 @@ public class EntradaSalida implements ISExpression {
                 }
                 throw new IllegalArgumentException("IOError: Expected a number for ~D but got -> " + valor);
     
-            case "~F":  // Números con decimales y ancho mínimo
+            case "~F":  //numeros con decimales y ancho minimo
                 if (valor instanceof Number) {
                     double doubleValue = ((Number) valor).doubleValue();
                     return (anchoMinimo > 0) 
@@ -170,7 +169,7 @@ public class EntradaSalida implements ISExpression {
                 }
                 throw new IllegalArgumentException("IOError: Expected a number for ~F but got -> " + valor);
     
-            case "~C":  // Carácter
+            case "~C":  //caracter
                 if (valor instanceof Character) {
                     return this.toStringNil(valor);
                 } else if (valor instanceof String && ((String) valor).length() == 1) {
@@ -178,15 +177,15 @@ public class EntradaSalida implements ISExpression {
                 }
                 throw new IllegalArgumentException("IOError: Expected a single character for ~C but got -> " + valor);
     
-            case "~S":  // Evaluar y mostrar su representación exacta en Lisp
+            case "~S":  //representacion enlisp
                 //System.out.println("EN S: "+ valor);
                 //Object resultadoEvaluado = ejecutador.ejecutarExpresion(valor);
                 return this.toStringNil(valor);
     
-            case "~%":  // Salto de línea
+            case "~%":  //enter
                 return "\n";
     
-            case "~&":  // Salto de línea si es necesario
+            case "~&":  //enter si es necesario
                 return System.lineSeparator();
     
             default:

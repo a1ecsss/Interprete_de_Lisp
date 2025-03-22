@@ -21,7 +21,7 @@ public class Logica implements ISExpression {
         }
         
         String operador = (String) expresion.get(0);
-        // Operación NOT: Solo debe tener un operando
+        //NOT: Solo debe tener un operando
         if (operador.equals("not")) {
             if (expresion.size() != 2) {
                 throw new IllegalArgumentException("LogicError: 'not' expects exactly one argument -> " + expresion);
@@ -30,7 +30,7 @@ public class Logica implements ISExpression {
             operando = ejecutador.ejecutarExpresion(operando);
             return (ISExpression.isNil(operando)) ? "T" : null;
         }
-        // Operación eq: Solo debe tener dos operandos
+        //eq: Solo debe tener dos operandos
         if (operador.equals("eq")) {
             if (expresion.size() != 3) {
                 throw new IllegalArgumentException("LogicError: 'eq' expects exactly two arguments -> " + expresion);
@@ -40,7 +40,7 @@ public class Logica implements ISExpression {
             if (ISExpression.isAtom(operando1) && ISExpression.isAtom(operando2)) {
                 return (operando1 == operando2) ? "T" : null;
             }
-            return null; // eq solo se aplica a átomos
+            return null; // eq solo se aplica a atomos
             
         }
 
@@ -64,7 +64,6 @@ public class Logica implements ISExpression {
         for (int i = 1; i < expresion.size(); i++) {
             //resultado += expresion.get(i);
             Object operando = expresion.get(i);
-            // Evaluar si los operandos son listas y ejecutarlas recursivamente
             operando = ejecutador.ejecutarExpresion(operando);
             switch (operador) {
                 case "and" -> resultado = resultado && !ISExpression.isNil(operando);

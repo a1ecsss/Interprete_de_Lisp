@@ -36,7 +36,7 @@ public class Listas implements ISExpression {
                     evalargumentos.add(ejecutador.ejecutarExpresion(argumentos.get(i))); 
                 }
                 //System.out.println("argumentos evaluados: "+argumentos);
-                return new ArrayList<>(evalargumentos);  // Devuelve una lista con los elementos dados.
+                return new ArrayList<>(evalargumentos);  //devuelve una lista con los elementos dados.
 
             case "car":
                 if (argumentos.size() != 1) {
@@ -51,7 +51,7 @@ public class Listas implements ISExpression {
                     throw new IllegalArgumentException("ListError: Cannot take car of an empty list");
                 }                
                 //System.out.println("carlist: "+carList);
-                return carList.get(0);  // Devuelve el primer elemento.
+                return carList.get(0);  //devuelve el primer elemento.
 
             case "cdr":
                 if (argumentos.size() != 1) {
@@ -66,7 +66,7 @@ public class Listas implements ISExpression {
                     throw new IllegalArgumentException("ListError: Cannot take car of an empty list");
                 }
                 
-                return  cdrList.isEmpty() ? List.of() : new ArrayList<>(cdrList.subList(1, cdrList.size())); // Devuelve la cola.
+                return  cdrList.isEmpty() ? List.of() : new ArrayList<>(cdrList.subList(1, cdrList.size())); //devuelve la cola.
 
             case "cons":
                 if (argumentos.size() != 2) {
@@ -127,7 +127,7 @@ public class Listas implements ISExpression {
                     throw new IllegalArgumentException("ListError: The value "+ evalList +" is not of type LIST");
                 }
                 List<?> listalen = (List<?>) evalList;
-                return listalen.size();  // Devuelve la cantidad de elementos.
+                return listalen.size();  //devuelve la cantidad de elementos.
 
             case "reverse":
                 if (argumentos.size() != 1) {
@@ -138,7 +138,7 @@ public class Listas implements ISExpression {
                     throw new IllegalArgumentException("ListError: The value "+ evalList +" is not of type LIST");
                 }
                 List<Object> reversedList = new ArrayList<>((List<?>) evalList);
-                java.util.Collections.reverse(reversedList); // Invierte la lista.
+                java.util.Collections.reverse(reversedList); //invierte lista.
                 return reversedList;  
 
             default:

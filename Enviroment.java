@@ -79,13 +79,13 @@ class Environment {
             if (lista.isEmpty()) {
                 throw new IllegalArgumentException("SetfError: Cannot modify `car` of an empty list.");
             }
-            lista.set(0, nuevoValor);  // Modifica el primer elemento
+            lista.set(0, nuevoValor);  //modifica el primer elemento
         } else if (operador.equals("cdr")) {
             if (lista.isEmpty()) {
                 throw new IllegalArgumentException("SetfError: Cannot modify `cdr` of an empty list.");
             }
             lista.clear();
-            lista.addAll((List<?>) nuevoValor);  // Reemplaza el resto de la lista
+            lista.addAll((List<?>) nuevoValor);  //eeemplaza el resto de la lista
         } else {
             throw new IllegalArgumentException("SetfError: Unsupported operation -> " + operador);
         }

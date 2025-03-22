@@ -42,7 +42,7 @@ public class Aritmetica implements ISExpression {
 
     private double checkNum(List<Object> expresion, int index){
         Object operando = ejecutador.ejecutarExpresion(expresion.get(index));
-        // Validar si son null antes de convertir
+        //calidar si son null antes de convertir
         if (operando == null) {
             throw new RuntimeException("TypeError: NIL value found in arithmetic expression -> " + expresion);
         }

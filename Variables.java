@@ -32,13 +32,13 @@ public class Variables implements ISExpression {
                 return valor;
 
             case "setf":
-                // Si el primer argumento es un átomo, se comporta como `setq`
+                //si el primer argumento es un átomo, se comporta como `setq`
                 if (ISExpression.isAtom(nombreVar)) {
                     ejecutador.environment.setVariable((String) nombreVar, valor);
                     return valor;
                 }
 
-                // Si no es un átomo, significa que queremos modificar una estructura
+                //si no es un átomo, significa que queremos modificar una estructura
                 if (ISExpression.isAtom(nombreVar)) {
                       throw new IllegalArgumentException("SetfError: Invalid location -> " + nombreVar);
                 }
@@ -48,20 +48,20 @@ public class Variables implements ISExpression {
                     throw new IllegalArgumentException("SetfError: Invalid structure to modify -> " + nombreVar);
                 }
 
-                // Extraer el nombre de la variable que queremos modificar
+                //toma el nombre de la variable que queremos modificar
                 Object estructuraNombre = modificador.get(1);
                 if (!(estructuraNombre instanceof String)) {
                     throw new IllegalArgumentException("SetfError: Expected a variable name but got -> " + estructuraNombre);
                 }
 
-                // Evaluar la expresión interna para obtener la estructura a modificar
+                //evalua la expresion interna para obtener la estructura a modificar
                 System.out.println("estructuraNombre: "+estructuraNombre);
                 Object estructura = ejecutador.ejecutarExpresion(estructuraNombre);
                 if (!(estructura instanceof List)) {
                     throw new IllegalArgumentException("SetfError: Expected a list but got -> " + estructura);
                 }
 
-                // Modificar la estructura
+                //modifica la estructura
                 ejecutador.environment.modificarEstructura((List<Object>) estructura, modificador.get(0), valor);
                 return valor;
 

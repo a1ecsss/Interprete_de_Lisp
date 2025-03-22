@@ -22,14 +22,14 @@ public class Comparaciones implements ISExpression {
         String operador = (String) expresion.get(0);
         Object operando1 = expresion.get(1);
         Object operando2 = expresion.get(2);
-        // Evaluar si los operandos son listas y ejecutarlas recursivamente
+        //evaluar si los operandos son listas y ejecutarlas recursivamente
         operando1 = ejecutador.ejecutarExpresion(operando1);
         operando2 = ejecutador.ejecutarExpresion(operando2);
-        // Validar si son null antes de convertir
+        //validar si son null antes de convertir
         if (operando1 == null || operando2 == null) {
             throw new RuntimeException("TypeError: Null value found in comparison expression -> " + expresion);
         }
-        // Convertir los operandos a números
+        //convertir los operandos a numeros
         double num1, num2;
         try {
             num1 = Double.parseDouble(operando1.toString());
