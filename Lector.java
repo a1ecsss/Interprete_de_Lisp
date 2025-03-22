@@ -37,7 +37,7 @@ public class Lector {
         return contenido.toString().trim();
     }
 
-    private static List<Object> parsearCodigo(String codigo) {
+    public static List<Object> parsearCodigo(String codigo) {
         StringTokenizer tokens = new StringTokenizer(codigo, " ()\"'", true);
         //while (tokens.hasMoreTokens()){
         //    System.out.println("tokens: hasMoreTokens:"+tokens.nextToken());

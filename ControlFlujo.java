@@ -25,10 +25,11 @@ public class ControlFlujo implements ISExpression {
         switch (operador) {
             case "if":
                 if (expresion.size() < 3 || expresion.size() > 4) {
-                    throw new IllegalArgumentException("ControlFlowError: 'if' expects 2 or 3 arguments -> " + expresion);
+                    throw new IllegalArgumentException("ControlFlowError: 'if' expects 2 or 3 not -> "+expresion.size()+", arguments -> " + expresion);
                 }
                 Object condicion = ejecutador.ejecutarExpresion(expresion.get(1));
-                if (condicion != null) {
+                
+                if (!ISExpression.isNil(condicion)) {
                     return ejecutador.ejecutarExpresion(expresion.get(2));
                 } else if (expresion.size() == 4) {
                     return ejecutador.ejecutarExpresion(expresion.get(3));
@@ -62,7 +63,7 @@ public class ControlFlujo implements ISExpression {
                     }
                     */
                     cond = ejecutador.ejecutarExpresion(cond);
-                    if (cond != null) {
+                    if (!ISExpression.isNil(cond)) {
                         Object resultado = null;
                         for(Object proceso : par.subList(1, par.size())){
                             resultado = ejecutador.ejecutarExpresion(proceso);

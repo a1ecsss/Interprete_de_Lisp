@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Funciones implements ISExpression {
@@ -44,9 +45,10 @@ public class Funciones implements ISExpression {
                 }
                 */    
                 //System.out.println("sublist: "+expresion.subList(2, expresion.size()));
-                Defun defun = new Defun(expresion.subList(3, expresion.size()), parameters);
-                ejecutador.environment.setFuncion((String) nombreFuncion, defun);
+                Defun defun = new Defun(expresion.subList(3, expresion.size()),(List<Object>) parameters);
+                //Defun defun = new Defun(deepCopy(expresion.subList(3, expresion.size())), (List<Object>) parameters);
 
+                ejecutador.environment.setFuncion((String) nombreFuncion, defun);
                 return nombreFuncion;
             
             case "lambda":
@@ -59,4 +61,8 @@ public class Funciones implements ISExpression {
                 throw new RuntimeException("OperatorError: Unknown function definition operator -> " + operador);
         }
     }
+
+    
+
+    
 }

@@ -52,12 +52,13 @@ public interface ISExpression {
 
     // Verifica si un valor es nulo (equivalente a NIL en Lisp)
     static boolean isNil(Object valor) {
-        return "NIL".equalsIgnoreCase(String.valueOf(valor)) || valor == null;
+        return valor == null || (valor instanceof List && ((List<?>) valor).isEmpty());
     }
+    
 
     // Verifica si un valor es nulo (equivalente a NIL en Lisp)
     static boolean isT(Object valor) {
-        return "T".equalsIgnoreCase(String.valueOf(valor)) || valor == null;
+        return valor != null || (valor instanceof List && !((List<?>) valor).isEmpty());
     }
     
 

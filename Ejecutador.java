@@ -61,18 +61,18 @@ public class Ejecutador {
 
     // Se ejecuta una función de environment
     private Object ejecutarFuncion(String nombreFuncion, List<Object> argumentos) {
-        Defun codigoFuncionEntorno = environment.getFuncion(nombreFuncion); //si no existe la funcion tira error
+        Defun codigoFuncionEntorno = environment.getFuncion(nombreFuncion); //si no existe la funcion tira error   
         Environment parentEnv = this.environment;
         // Si no se encuentra la función dentro del environment, se lanza un error
         if (codigoFuncionEntorno == null) {
             throw new RuntimeException("FunctionError: Undefined function -> " + nombreFuncion);
         }
         // Hacemos un cast seguro
-        if (!(codigoFuncionEntorno.codigo instanceof List)) {
+        if (!(codigoFuncionEntorno.getCodigo() instanceof List)) {
             throw new RuntimeException("FunctionError: Invalid function structure -> " + nombreFuncion);
         }
-        List<Object> body = (List<Object>) codigoFuncionEntorno.codigo;
-        List<Object> parameters = (List<Object>) codigoFuncionEntorno.parameters;
+        List<Object> body = (List<Object>) codigoFuncionEntorno.getCodigo();
+        List<Object> parameters = codigoFuncionEntorno.getParameters();
         // Verificamos que el número de parámetros coincida con el número de argumentos
         if (parameters.size() != argumentos.size()) {
             throw new RuntimeException("FunctionError: Parameter mismatch in function '" + nombreFuncion + "'. Expected -> "+parameters.size()+ " but got -> "+argumentos.size());
@@ -84,8 +84,12 @@ public class Ejecutador {
             Object valor = argumentos.get(i);
             newFunction.setVariable(variable, this.ejecutarExpresion(valor));
         }
-        return newFunction.ejecutarCodigo();
+        Defun codigoafter = environment.getFuncion(nombreFuncion); //si no existe la funcion tira error
+        Object a = newFunction.ejecutarCodigo();
+        
+        return a;
     }
+    
     
     
 }

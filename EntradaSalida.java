@@ -74,17 +74,8 @@ public class EntradaSalida implements ISExpression {
 
     private Object evaluarRead() {
         String input = scanner.nextLine().trim();
-        // Intentamos convertir a número
-        try {
-            if (input.contains(".")) {  // Si tiene punto, lo tratamos como Double
-                return Double.parseDouble(input);
-            } else {  // Si no tiene punto, lo tratamos como Integer
-                return Integer.parseInt(input);
-            }
-        } catch (NumberFormatException e) {
-            // Si falla la conversión, devolver el input como String
-            return input;
-        }
+        Object formatoLisp = Lector.parsearCodigo(input).get(0); 
+        return formatoLisp;
     }
     
 
@@ -93,11 +84,7 @@ public class EntradaSalida implements ISExpression {
             throw new IllegalArgumentException("IOError: 'format' expects at least two arguments -> " + expresion);
         }
 
-        Object destino = expresion.get(1);
-         
-        if (!"t".equalsIgnoreCase(destino.toString()) && !"NIL".equalsIgnoreCase(destino.toString())) {
-            throw new IllegalArgumentException("IOError: 'format' expects T, NIL, or a string as first argument -> " + destino);
-        }
+        Object destino = ejecutador.ejecutarExpresion(expresion.get(1));
         
         Object formatoBruto = ejecutador.ejecutarExpresion(expresion.get(2));
         if (!(formatoBruto instanceof String)) {
@@ -107,7 +94,7 @@ public class EntradaSalida implements ISExpression {
         String formato = (String) formatoBruto;
         String resultado = procesarFormato(formato, expresion.subList(3, expresion.size()));
 
-        if (destino != null) {
+        if (!ISExpression.isNil(destino)) {
             System.out.print(resultado);  // No usa println porque `format` no siempre agrega salto de línea
         }
 
@@ -208,7 +195,7 @@ public class EntradaSalida implements ISExpression {
     }
     
     String toStringNil(Object valor) {
-        return (valor != null) ? valor.toString() : "NIL";
+        return (!ISExpression.isNil(valor)) ? valor.toString() : "NIL";
     }
     
 
