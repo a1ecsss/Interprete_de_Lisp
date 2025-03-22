@@ -1,7 +1,14 @@
 import java.util.*;
-
 //"C:\Program Files\Java\jdk-22\bin\java" Main
+/**
+* clase principal que inicia la ejecucion del interprete lisp
+*/
 public class Main {
+
+    /**
+    * metodo principal que carga y ejecuta el archivo de codigo lisp
+    * @param args argumentos desde consola (no usados)
+    */
     public static void main(String[] args) {
         String rutaArchivo = "codigo.lisp";
         List<Object> codigo = null; 

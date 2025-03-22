@@ -1,9 +1,18 @@
 import java.io.*;
 import java.util.*;
 
+/**
+* clase encargada de leer y parsear el archivo de codigo lisp
+*/
 public class Lector {
     private static List<Object> codigo = new ArrayList<>();
 
+    /**
+    * lee el archivo y convierte su contenido en una lista de objetos
+    * @param root ruta del archivo
+    * @return lista con el codigo parseado
+    * @throws IOException si hay error de lectura
+    */
     public static List<Object> getCodigo(String root) throws IOException {
         if (!root.endsWith(".txt") && !root.endsWith(".lisp")) {
             throw new IllegalArgumentException("Error: Solo se permiten archivos .txt o .lisp");
@@ -14,6 +23,12 @@ public class Lector {
         return codigo;
     }
 
+    /**
+    * lee el contenido del archivo como texto plano
+    * @param root ruta del archivo
+    * @return contenido del archivo como string
+    * @throws IOException si hay error al abrir o leer
+    */
     private static String leerArchivo(String root) throws IOException {
         StringBuilder contenido = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new FileReader(root))) {
@@ -37,6 +52,11 @@ public class Lector {
         return contenido.toString().trim();
     }
 
+    /**
+    * convierte el texto plano en una lista de objetos (expresiones lisp)
+    * @param codigo string plano del archivo
+    * @return lista anidada de objetos
+    */
     public static List<Object> parsearCodigo(String codigo) {
         StringTokenizer tokens = new StringTokenizer(codigo, " ()\"'", true);
         //while (tokens.hasMoreTokens()){
@@ -46,6 +66,11 @@ public class Lector {
         return parsearLista(tokens);
     }
 
+    /**
+    * parsea listas anidadas a partir de los tokens
+    * @param listaAnidadas tokenizer con los tokens del codigo
+    * @return lista anidada de objetos
+    */
     private static List<Object> parsearLista(StringTokenizer listaAnidadas) {
         List<Object> lista = new ArrayList<>();
         //System.out.println("lista" + lista);
@@ -104,6 +129,11 @@ public class Lector {
         return lista;
     }
 
+    /**
+    * convierte un token en su valor adecuado: int, double o string
+    * @param valor token en texto
+    * @return valor convertido
+    */
     private static Object parsearValor(String valor) {
         //mira si si es un num entero
         if (valor.matches("-?\\d+")) {

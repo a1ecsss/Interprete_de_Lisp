@@ -2,10 +2,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+* clase que se encarga de evaluar y ejecutar expresiones lisp
+*/
 public class Ejecutador {
     public Environment environment;
     private final List<ISExpression> evaluadores;
 
+    /**
+    * constructor que inicializa el ejecutador con su entorno y lista de evaluadores
+    * @param environment entorno actual de ejecucion
+    */
     public Ejecutador(Environment environment) {
         this.environment = environment;
         this.evaluadores = List.of(
@@ -21,6 +28,11 @@ public class Ejecutador {
         );
     }
 
+    /**
+    * ejecuta una expresion lisp, puede ser un atomo o una lista
+    * @param expresion objeto que representa la expresion
+    * @return resultado de la evaluacion
+    */
     public Object ejecutarExpresion(Object expresion) {
         // Si es una lista se ejecuta como tal
         if (!ISExpression.isAtom(expresion)) {
@@ -37,7 +49,12 @@ public class Ejecutador {
         // Se retorna la expresion si no cumple con lo anterior
         return expresion;
     }
-    
+
+    /**
+    * ejecuta una expresion que es una lista, buscando el evaluador apropiado
+    * @param expresion lista con operador y argumentos
+    * @return resultado de la evaluacion
+    */
     private Object ejecutarExpresionLista(List<Object> expresion) {
         if (expresion.isEmpty()) {
             throw new IllegalArgumentException("SyntaxError: Attempt to call an empty list as a function." );
@@ -59,11 +76,16 @@ public class Ejecutador {
         return ejecutarFuncion((String) operador, expresion.subList(1, expresion.size())); 
     }
 
-    // Se ejecuta una función de environment
+    /**
+    * ejecuta una funcion definida por el usuario
+    * @param nombreFuncion nombre de la funcion
+    * @param argumentos lista de argumentos
+    * @return resultado de ejecutar la funcion
+    */
     private Object ejecutarFuncion(String nombreFuncion, List<Object> argumentos) {
         Defun codigoFuncionEntorno = environment.getFuncion(nombreFuncion); //si no existe la funcion tira error   
         Environment parentEnv = this.environment;
-        // Si no se encuentra la función dentro del environment, se lanza un error
+        // Si no se encuentra la funcion dentro del environment, se lanza un error
         if (codigoFuncionEntorno == null) {
             throw new RuntimeException("FunctionError: Undefined function -> " + nombreFuncion);
         }
@@ -73,12 +95,12 @@ public class Ejecutador {
         }
         List<Object> body = (List<Object>) codigoFuncionEntorno.getCodigo();
         List<Object> parameters = codigoFuncionEntorno.getParameters();
-        // Verificamos que el número de parámetros coincida con el número de argumentos
+        // Verificamos que el numero de parametros coincida con el numero de argumentos
         if (parameters.size() != argumentos.size()) {
             throw new RuntimeException("FunctionError: Parameter mismatch in function '" + nombreFuncion + "'. Expected -> "+parameters.size()+ " but got -> "+argumentos.size());
         }
         Environment newFunction = new Environment(body, parameters, parentEnv);
-        // Asignamos los valores de los argumentos a los parámetros
+        // Asignamos los valores de los argumentos a los parametros
         for (int i = 0; i < parameters.size(); i++) {
             String variable = (String) parameters.get(i);
             Object valor = argumentos.get(i);
@@ -89,7 +111,4 @@ public class Ejecutador {
         
         return a;
     }
-    
-    
-    
 }
